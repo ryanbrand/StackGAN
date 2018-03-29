@@ -8,7 +8,7 @@ import numpy as np
 import os
 import pickle
 from misc.utils import get_image
-import scipy.misc
+import skimage.transform
 import pandas as pd
 
 # from glob import glob
@@ -64,7 +64,7 @@ def save_data_list(inpath, outpath, filenames, filename_bbox):
         img = get_image(f_name, LOAD_SIZE, is_crop=True, bbox=bbox)
         img = img.astype('uint8')
         hr_images.append(img)
-        lr_img = scipy.misc.imresize(img, [lr_size, lr_size], 'bicubic')
+        lr_img = skimage.transform.resize(img, [lr_size, lr_size], order=3)
         lr_images.append(lr_img)
         cnt += 1
         if cnt % 100 == 0:
